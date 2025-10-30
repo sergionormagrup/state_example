@@ -7,41 +7,38 @@ class ItemsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ItemsViewModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Lista Filtrable"),
-        ),
-        body: Consumer<ItemsViewModel>(
-          builder: (context, viewModel, child) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      labelText: "Filtrar elementos...",
-                      border: OutlineInputBorder(),
-                    ),
-                    onChanged: (value) => viewModel.filterItems(value),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Lista Filtrable"),
+      ),
+      body: Consumer<ItemsViewModel>(
+        builder: (context, viewModel, child) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: "Filtrar elementos...",
+                    border: OutlineInputBorder(),
                   ),
+                  onChanged: (value) => viewModel.filterItems(value),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: viewModel.filteredItems.length,
-                    itemBuilder: (context, index) {
-                      final item = viewModel.filteredItems[index];
-                      return ListTile(
-                        title: Text(item),
-                      );
-                    },
-                  ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: viewModel.filteredItems.length,
+                  itemBuilder: (context, index) {
+                    final item = viewModel.filteredItems[index];
+                    return ListTile(
+                      title: Text(item),
+                    );
+                  },
                 ),
-              ],
-            );
-          },
-        ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
